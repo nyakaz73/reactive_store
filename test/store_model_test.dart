@@ -30,5 +30,16 @@ void main() {
     expect(model.totalItems, 1);
   });
 
+  test('testing getting items in list', (){
+    final model = StoreModel();
+    final data = model.itemsList;
+    model.add({'name':'Marcus','surname':'Doe','age':72});
+    model.add({'name':'Jessica','surname':'Smith','age':12});
+    model.remove(1);
+    data.forEach((element) {
+      expect(element, {'name':'Marcus','surname':'Doe','age':72});
+    });
+
+  });
 
 }
