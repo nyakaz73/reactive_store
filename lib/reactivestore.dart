@@ -22,9 +22,7 @@ class ReactiveStoreState extends State<ReactiveStore>{
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<StoreModel>(
       create: (context) => StoreModel(),
-      child:  new MaterialApp(
-        home: widget.child,
-      )
+      child:  widget.child,
     );
   }
 }
