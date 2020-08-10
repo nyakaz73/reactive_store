@@ -40,7 +40,8 @@ void main() {
                   model.add({'name':'Daniel','surname':'Moe','age':7});
                   model.add({'name':'Marcus','surname':'Doe','age':72});
                   model.add({'name':'Jessica','surname':'Smith','age':12});
-                  return Text('Hell');
+                  return Text(model.totalItems.toString());
+
                 }
               ),
               new UpdateUI(
@@ -61,8 +62,8 @@ void main() {
     ));
 
     final fullNameFinder = find.text('3');
-    expect(fullNameFinder, findsNothing);
-    //expect(fullNameFinder, findsOneWidget);
+    //expect(fullNameFinder, findsNothing);
+    expect(fullNameFinder, findsOneWidget);
 
   });
 }
