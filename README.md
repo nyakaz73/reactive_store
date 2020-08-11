@@ -71,7 +71,7 @@ new Padding(
 ```
 ### The Store ADT
 
-The above example introduces us to the final piece of our [reactivestore]() which is the [StoreModel]() Abstract Data Type (ADT). The StoreModel as the name suggests is the store to which we are going to store our data. The [StoreModel]() listens for changes in state in our app and **notifies** the Widgets wrapped by the [UpdateUI]() widget. The [StoreModel]() is essentially an **Observable** class.
+The above example introduces us to the final piece of our [reactivestore]() which is the [StoreModel]() Abstract Data Type (ADT). The StoreModel  is the store which stores the data. The [StoreModel]() listens for changes in state in our app and **notifies** the Widgets wrapped by the [UpdateUI]() widget. The [StoreModel]() is essentially an **Observable** class.
 
 The data in the store is accessed using the [Provider.of]() . The Provider.of is of type StoreModel, and to access the data without nessessarily changing the  UI you use it with a listen parameter set to false as follows.
 
@@ -88,23 +88,27 @@ The StoreModel  is a List implmented ADT with the following operations:
 | model.remove(index)                               | remove method takes the integer index         | 
 | model.removeAll()                                 | removed the data in the store          | 
 | model.itemsList.isEmpty()                                  | returns true is the store is empty else false          |
-| data = model.itemList                             | returns a list of Map in the store          | 
-| data = model.itemList[0]                             | returns a Map at index 0          |  
-| data = model.itemList[0]['age']                             | returns the age and in the list and index 0          |     
+| model.itemsList.length                                  | returns the size of the list          |
+| model.totalItems                                  | returns the size of the list. Its just a getter method you can use insted of model.itemsList.length          |
+| data = model.itemsList                             | returns a list of Maps in the store          | 
+| data = model.itemsList[0]                             | returns a Map at index 0          |  
+| data = model.itemsList[0]['age']                             | returns the age in the list at index 0          |   
 
+
+* **NB** The List<E> operations apply as long as you are using **itemsList** key eg model.itemsList.* since the data is being store in a list
 
 ## Imports
- After installing the [footer](https://github.com/nyakaz73/Flutter-Footer/blob/master/pubspec.yanl) package remember the imports
+ After installing the [reactivestore]() package remember the imports
 ```dart
-import 'package:footer/footer.dart';
-import 'package:footer/footer_view.dart';
+import 'package:reactivestore/model/store_model.dart';
+import 'package:reactivestore/reactivestore.dart';
+import 'package:provider/provider.dart';
 ```
 
 ## Simple Example
-In this Example i will show you how you can simply use the [FooterView](https://github.com/nyakaz73/Flutter-Footer/blob/master/example/footer_example.dart) Widget inside a Scaffold body. 
+In this Example i will show you how you can easily manage the state of your app using a [Dialog](https://api.flutter.dev/flutter/material/Dialog-class.html) as a descendant class. 
 
-* Note that when the children list is not overflowing the Footer will be fixed right at the bottom of the Page.
-* If there is overflow the whole page will become scrollable and the footer wont be fixed . See gif image below.
+
 ```dart
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
