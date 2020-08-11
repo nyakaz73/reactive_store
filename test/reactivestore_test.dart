@@ -40,7 +40,7 @@ void main() {
                   model.add({'name':'Daniel','surname':'Moe','age':7});
                   model.add({'name':'Marcus','surname':'Doe','age':72});
                   model.add({'name':'Jessica','surname':'Smith','age':12});
-                  return Text(model.totalItems.toString());
+                  return Text(model.itemsList.length.toString());
 
                 }
               ),
