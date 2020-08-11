@@ -69,20 +69,29 @@ new Padding(
 )
 
 ```
-The above example introduces us to the final piece of our [reactivestore]() which is the [StoreModel]() Abstract Data Type (ADT). The StoreModel as the name suggests is the store to which we are going to store our data. The [StoreModel]() listens for changes in state in our app and **notifies** the Widgets wrapped by the [UpdateUI]() widget. The [StoreModel]() is essentially an Observable class.
+### The Store ADT
 
-The StoreModel  is a List implmented ADT with the following operations
-| Operation                | StoreModel   |  Linked List  |  
-| -------------            |:-------------:|:-------------:|
-| linked = LinkedList()    | O(1)          | O(1)          |
-|                          |               |               |
-| linked.add(value)        | NA            | O(1)          |
-| linked.append(value)     | O(N)          | O(N)          |  
-| linked.remove(value)     | O(1)          | O(N)          |
-| linked.isEmpty()         | O(1)          | O(1)          |
-| n = len(map)             | O(1)          | O(1)          |
-| x in linked              | O(N)          | O(N)          |
-| traversal                | O(N)          | O(N)          |
+The above example introduces us to the final piece of our [reactivestore]() which is the [StoreModel]() Abstract Data Type (ADT). The StoreModel as the name suggests is the store to which we are going to store our data. The [StoreModel]() listens for changes in state in our app and **notifies** the Widgets wrapped by the [UpdateUI]() widget. The [StoreModel]() is essentially an **Observable** class.
+
+The data in the store is accessed using the [Provider.of]() . The Provider.of is of type StoreModel, and to access the data without nessessarily changing the  UI you use it with a listen parameter set to false as follows.
+
+```dart
+final model = Provider.of<StoreModel>(context,listen:false);
+```
+The StoreModel  is a List implmented ADT with the following operations:
+
+| Operation                                         | Description    | 
+| -------------                                     |:-------------:|
+| final model = Provider.of<StoreModel>(context);   | Data access with default listen set to true          |
+|                                                   |               |
+| model.add({'name':'John','age':5})                                     | add method takes a Map       | 
+| model.remove(index)                               | remove method takes the integer index         | 
+| model.removeAll()                                 | removed the data in the store          | 
+| model.itemsList.isEmpty()                                  | returns true is the store is empty else false          |
+| data = model.itemList                             | returns a list of Map in the store          | 
+| data = model.itemList[0]                             | returns a Map at index 0          |  
+| data = model.itemList[0]['age']                             | returns the age and in the list and index 0          |     
+
 
 ## Imports
  After installing the [footer](https://github.com/nyakaz73/Flutter-Footer/blob/master/pubspec.yanl) package remember the imports
