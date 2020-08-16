@@ -4,7 +4,7 @@ A new Flutter package which helps developers in managing the state of their apps
 ### Show some :heart: and :star: the repo to support the project
 
 ### Screenshots
-<img src="https://raw.githubusercontent.com/nyakaz73/reactive_store/master/image0.jpg" width="400em" height="800em" /> <img src="https://raw.githubusercontent.com/nyakaz73/reactive_store/master/image1.jpg" width="400em" height="800em" />
+<img src="https://github.com/nyakaz73/reactive_store/raw/master/image0.jpg" width="400em" height="800em" /> <img src="https://github.com/nyakaz73/reactive_store/raw/master/image1.jpg" width="400em" height="800em" />
 
 ## Getting Started
 This package was inspired by the medium post i wrote [here](https://medium.com/@tafadzwalnyamukapa/dialog-state-management-flutter-using-providers-and-change-notifiers-cbd5a59bcf5a) on Dialog State Management in Flutter — using Providers and Change Notifiers.
@@ -485,7 +485,7 @@ int items2 = access.itemsList.length;
 
 * **NB** Directly using the StoreModel instance object to access operations in the StoreModel does not the rebuild UI you need to pass the context and listen using the **of** method.
 
-### Credit remove Method
+### remove Method
 
 ```dart
 ...
