@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reactivestore/model/store_model.dart';
 
-class ReactiveStore extends StatefulWidget{
-
+class ReactiveStore extends StatefulWidget {
   final Widget child;
   ReactiveStore({@required this.child});
 
@@ -14,38 +13,31 @@ class ReactiveStore extends StatefulWidget{
   ReactiveStoreState createState() {
     return new ReactiveStoreState();
   }
-
 }
-class ReactiveStoreState extends State<ReactiveStore>{
 
+class ReactiveStoreState extends State<ReactiveStore> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<StoreModel>(
       create: (context) => StoreModel(),
-      child:  widget.child,
+      child: widget.child,
     );
   }
 }
 
-
-class UpdateUI extends StatefulWidget{
-  
+class UpdateUI extends StatefulWidget {
   final Function builder;
   UpdateUI({@required this.builder});
 
   @override
-  UpdateUIState createState(){
+  UpdateUIState createState() {
     return new UpdateUIState();
   }
-
 }
 
-class UpdateUIState extends State<UpdateUI>{
+class UpdateUIState extends State<UpdateUI> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<StoreModel>(
-      builder: widget.builder
-    );
+    return Consumer<StoreModel>(builder: widget.builder);
   }
-  
 }
