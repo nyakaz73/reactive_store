@@ -448,6 +448,8 @@ class MyCustomDialogState extends State<MyCustomDialog> {
   }
 }
 
+<img src="image0" width="400em" height="800em" />
+
 ```
 The MyCustomDialog class is the descendant class of the ansestor [ReactiveStore]() class Widget.
 Now lets take a look at the **addCustomer** method.  The method will add our data into the store, in this case the name and salary.
@@ -483,7 +485,48 @@ int items2 = access.itemsList.length;
 
 * **NB** Directly using the StoreModel instance object to access operations in the StoreModel does not the rebuild UI you need to pass the context and listen using the **of** method.
 
+### Credit remove Method
 
+```dart
+...
+...
+
+void _showAlertDialog(String title, String message, int index){
+    final model = StoreModel(); //Model is the Observable
+    final x = model.of(context, true); //Use of method in model with context and listen set to true. To update UI
+    AlertDialog alertDialog = AlertDialog(
+      title: new Icon(Icons.warning, size: 80.0, color: Colors.amber,),
+      content: Text(message),
+      actions: <Widget>[
+        FlatButton(
+          child: Text('YES',style: TextStyle(color: Colors.red),),
+          onPressed: () {
+            x.remove(index);
+            Navigator.of(context).pop();
+          },
+        ),
+
+        FlatButton(
+          child: Text('CANCEL'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+    showDialog(
+        context: context,
+        builder: (_)=>alertDialog
+    );
+  }
+
+  ....
+```
+In the above method the _showAlertDialog in the MyHomePage in notice how the of method has its listen parameter set to true. This is such whenever we remove an data from our store we want to instantly rebuild the UI ie widgets wrapped by the UpdateUI class.
+
+<img src="image0" width="400em" height="800em" />
+
+!!END
 
 ### Pull Requests
 I Welcome and i encourage all Pull Requests
