@@ -105,7 +105,7 @@ import 'package:reactivestore/reactivestore.dart';
 import 'package:provider/provider.dart';
 ```
 
-## Simple Example
+## Example
 In this Example i will show you how you can easily manage the state of your app using a [Dialog](https://api.flutter.dev/flutter/material/Dialog-class.html) as a descendant class. 
 
 
