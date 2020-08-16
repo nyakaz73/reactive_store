@@ -315,7 +315,8 @@ As described above remember to use the keyword **itemsList** to access the list 
 
 
 The result after the above implemation. Remember to comment out MyCustomDialog call in the floating action button  since we havent implemented it yet.
-<img src="https://github.com/nyakaz73/reactive_store/raw/master/image3" width="400em" height="800em" />
+
+<img src="https://github.com/nyakaz73/reactive_store/raw/master/image3.jpg" width="400em" height="800em" />
 
 Now we need to implement the MyCustomDialog in the floating action button.
 
@@ -452,7 +453,7 @@ class MyCustomDialogState extends State<MyCustomDialog> {
 
 ```
 
-<img src="https://github.com/nyakaz73/reactive_store/raw/master/image0" width="400em" height="800em" />
+<img src="https://github.com/nyakaz73/reactive_store/raw/master/image0.jpg" width="400em" height="800em" />
 
 The MyCustomDialog class is the descendant class of the ansestor [ReactiveStore]() class Widget.
 Now lets take a look at the **addCustomer** method.  The method will add our data into the store, in this case the name and salary.
@@ -528,7 +529,7 @@ void _showAlertDialog(String title, String message, int index){
 ```
 In the above method the _showAlertDialog in the MyHomePage in notice how the of method has its listen parameter set to true. This is such whenever we remove an data from our store we want to instantly rebuild the UI ie widgets wrapped by the UpdateUI class.
 
-<img src="https://github.com/nyakaz73/reactive_store/raw/master/image4" width="400em" height="800em" />
+<img src="https://github.com/nyakaz73/reactive_store/raw/master/image4.jpg" width="400em" height="800em" />
 
 !!END
 
