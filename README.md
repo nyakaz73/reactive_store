@@ -315,7 +315,7 @@ As described above remember to use the keyword **itemsList** to access the list 
 
 
 The result after the above implemation. Remember to comment out MyCustomDialog call in the floating action button  since we havent implemented it yet.
-<img src="image3" width="400em" height="800em" />
+<img src="https://github.com/nyakaz73/reactive_store/raw/master/image3" width="400em" height="800em" />
 
 Now we need to implement the MyCustomDialog in the floating action button.
 
@@ -448,7 +448,7 @@ class MyCustomDialogState extends State<MyCustomDialog> {
   }
 }
 
-<img src="image0" width="400em" height="800em" />
+<img src="https://github.com/nyakaz73/reactive_store/raw/master/image0" width="400em" height="800em" />
 
 ```
 The MyCustomDialog class is the descendant class of the ansestor [ReactiveStore]() class Widget.
