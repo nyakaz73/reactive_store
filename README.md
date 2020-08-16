@@ -110,190 +110,346 @@ In this Example i will show you how you can easily manage the state of your app 
 
 
 ```dart
-import 'package:footer/footer.dart';
-import 'package:footer/footer_view.dart';
-
-
-@override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:AppBar(
-        title: new Text('Footer View Example')
-      ),
-      body: new FooterView(
-        children:<Widget>[
-          new Padding(
-            padding: new EdgeInsets.only(top:200.0),
-            child: Center(
-              child: new Text('Scrollable View'),
-            ),
-          ),
-        ],
-        footer: new Footer(
-          child: Text('I am a Customizable footer!!'),
-          padding: EdgeInsets.all(10.0),
-        ),
-        flex: 1, //default flex is 2
-      ),
-    );
-  }
-```
-<img src="https://github.com/nyakaz73/Flutter-Footer/raw/master/footer0.jpg" width="400em" height="800em" />
-
-
-## Below is a Full Example
-
-```dart
 import 'package:flutter/material.dart';
-import 'package:footer/footer.dart';
-import 'package:footer/footer_view.dart';
+import 'package:reactivestore/model/store_model.dart';
+import 'package:reactivestore/reactivestore.dart';
+import 'package:provider/provider.dart';
+
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  static Map<int, Color> color = {
-    50:Color.fromRGBO(4, 131, 184, .1),
-    100:Color.fromRGBO(4, 131, 184, .2),
-    200:Color.fromRGBO(4, 131, 184, .3),
-    300:Color.fromRGBO(4, 131, 184, .4),
-    400:Color.fromRGBO(4, 131, 184, .5),
-    500:Color.fromRGBO(4, 131, 184, .6),
-    600:Color.fromRGBO(4, 131, 184, .7),
-    700:Color.fromRGBO(4, 131, 184, .8),
-    800:Color.fromRGBO(4, 131, 184, .9),
-    900:Color.fromRGBO(4, 131, 184, 1),
-  };
-  //MaterialColor myColor = MaterialColor(0xFF162A49, color);
-  
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Footer',
-      theme: ThemeData(
-        primarySwatch: MaterialColor(0xFF162A49, color),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: FooterPage(),
+    return ReactiveStore(
+      child: MaterialApp(
+        title: 'Reactive Store App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: MyHomePage(title: 'Reactive Store'),
+      )
     );
+     
   }
 }
+```
+In the above snippet i have imported the reactivestore and a provider package. I have wrapped the root MaterialApp with a ReactiveStore Widget.
 
-class FooterPage extends StatefulWidget {
+```dart
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+  final String title;
+
   @override
-  FooterPageState createState() {
-    return new FooterPageState();
-  }
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class FooterPageState extends State<FooterPage> {
-
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
     return Scaffold(
       appBar: AppBar(
-        title: new  Text('Flutter Footer View',style: TextStyle(fontWeight:FontWeight.w200),)
+        title: Text(widget.title),
       ),
-      drawer: new Drawer(),
-      body: FooterView(
-          children: <Widget>[
-            new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: new Column(
+        children: <Widget>[
+          new Padding(
+              padding: EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 new Padding(
-                  padding: EdgeInsets.only(top:50,left: 70),
-                    child: new Text('Scrollable View Section'),
+                  padding: EdgeInsets.all(10.0),
+                  child: Text("Total Members:",style: TextStyle(fontWeight: FontWeight.w300,fontSize: 22.0),textAlign: TextAlign.left,),
+                ),
+
+                new Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: UpdateUI(
+                      builder: (context,consumerModel,child)=>consumerModel.itemsList !=null?Text(
+                        consumerModel.totalItems.toString(),
+                        style: TextStyle(fontWeight: FontWeight.w500,fontSize: 25.0, color: Colors.green),):null,
+                    )
                 )
               ],
             ),
-          ],
-          footer: new Footer(
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children:<Widget>[
-                  new Center(
-                    child:new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        new Container(
-                          height: 45.0,
-                          width: 45.0,
-                          child: Center(
-                            child:Card(
-                              elevation: 5.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0), // half of height and width of Image
-                              ),
-                              child: IconButton(
-                                icon: new Icon(Icons.audiotrack,size: 20.0,),
-                                color: Color(0xFF162A49),
-                                onPressed: () {},
-                              ),
+          ),
+          UpdateUI(
+              builder: (context,customerModel,child)=>Expanded(
+                child: new ListView.builder(
+                  itemCount: customerModel.itemsList !=null? customerModel.totalItems:0,
+                    itemBuilder: (BuildContext context, int index){
+                      return new Padding(
+                          padding: EdgeInsets.only(left: 5.0,right: 5.0),
+                        child: Card(
+                          elevation: 5.0,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.blue,
+                              child: Icon(Icons.person_outline),
                             ),
-                          )
-                        ),
-                        new Container(
-                          height: 45.0,
-                          width: 45.0,
-                          child: Center(
-                            child:Card(
-                              elevation: 5.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0), // half of height and width of Image
-                              ),
-                              child: IconButton(
-                                icon: new Icon(Icons.fingerprint,size: 20.0,),
-                                color: Color(0xFF162A49),
-                                onPressed: () {},
-                              ),
+                            title: Text(customerModel.itemsList[index]['name'], style: titleStyle,),
+                            subtitle: Text('\$ ${customerModel.itemsList[index]['salary'].toString()}.00',style: titleStyle,),
+                            trailing: new GestureDetector(
+                              child: new Icon(Icons.delete, color: Colors.red,),
+                              onTap: (){
+                                _showAlertDialog('Status', 'Are you sure you want to delete ${customerModel.itemsList[index]['name'].toUpperCase()}',index);
+                              },
                             ),
-                          )
+                          ),
                         ),
-                        new Container(
-                          height: 45.0,
-                          width: 45.0,
-                          child: Center(
-                            child:Card(
-                              elevation: 5.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0), // half of height and width of Image
-                              ),
-                              child: IconButton(
-                                icon: new Icon(Icons.call,size: 20.0,),
-                                color: Color(0xFF162A49),
-                                onPressed: () {},
-                              ),
-                            ),
-                          )
-                        ),
-                      ],
-                    ),
-                  ),
+                      );
+                    }
+                ),
 
-                  Text('Copyright ©2020, All Rights Reserved.',style: TextStyle(fontWeight:FontWeight.w300, fontSize: 12.0, color: Color(0xFF162A49)),),
-                  Text('Powered by Nexsport',style: TextStyle(fontWeight:FontWeight.w300, fontSize: 12.0,color: Color(0xFF162A49)),),
-                ]
-              ),
-              padding: EdgeInsets.all(5.0),
-            
+            ),
           )
+
+        ],
       ),
-      floatingActionButton: new FloatingActionButton(
-              elevation: 10.0,
-              child: new Icon(Icons.chat),
-              backgroundColor: Color(0xFF162A49),
-              onPressed: (){
-              }
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          showDialog(context: context, builder: (_) => MyCustomDialog());
+        },
+        child: Icon(Icons.person_add),
       ),
+    );
+  }
+   void _showAlertDialog(String title, String message, int index){
+    AlertDialog alertDialog = AlertDialog(
+      title: new Icon(Icons.warning, size: 80.0, color: Colors.amber,),
+      content: Text(message),
+      actions: <Widget>[
+        FlatButton(
+          child: Text('YES',style: TextStyle(color: Colors.red),),
+          onPressed: () {
+            final model = Provider.of<StoreModel>(context,listen: true);
+            model.remove(index);
+            Navigator.of(context).pop();
+          },
+        ),
+
+        FlatButton(
+          child: Text('CANCEL'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+    showDialog(
+        context: context,
+        builder: (_)=>alertDialog
     );
   }
 }
 
 ```
-## Scrollable FooterView
-<img src="https://github.com/nyakaz73/Flutter-Footer/raw/master/footer3.gif" width="400em" height="800em" />
+
+In the above code notice how we are tracking for chages using the [UpdateUI]() widget
+```dart
+...
+...
+new Padding(
+  padding: EdgeInsets.all(10.0),
+  child: UpdateUI(
+    builder: (context,consumerModel,child)=>consumerModel.itemsList !=null?Text(
+      consumerModel.totalItems.toString(),
+      style: TextStyle(fontWeight: FontWeight.w500,fontSize: 25.0, color: Colors.green),):null,
+  ),
+),
+...
+...
+```
+The  [UpdateUI]() will rebuild whenever something is added to our store. 
+* **Nb** The builder in UpdateUI takes three arguments(BuildContext, StoreModel, Widget). You can name the the StoreModel however you want as long as you are using the name to access the data in store. eg  consumerModel as above.
+
+```dart 
+...
+...
+UpdateUI(
+  builder: (context,customerModel,child)=>Expanded(
+    child: new ListView.builder(
+      itemCount: customerModel.itemsList !=null? customerModel.totalItems:0,
+        itemBuilder: (BuildContext context, int index){
+          return new Padding(
+              padding: EdgeInsets.only(left: 5.0,right: 5.0),
+            child: Card(
+              elevation: 5.0,
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.blue,
+                  child: Icon(Icons.person_outline),
+                ),
+                title: Text(customerModel.itemsList[index]['name'], style: titleStyle,),
+                subtitle: Text('\$ ${customerModel.itemsList[index]['salary'].toString()}.00',style: titleStyle,),
+                trailing: new GestureDetector(
+                  child: new Icon(Icons.delete, color: Colors.red,),
+                  onTap: (){
+                    _showAlertDialog('Status', 'Are you sure you want to delete ${customerModel.itemsList[index]['name'].toUpperCase()}',index);
+                  },
+                ),
+              ),
+            ),
+          );
+        }
+    ),
+  ),
+)
+...
+...
+```
+In the above snipped notice how we are accessing the data using a list map conversion
+```dart
+new Text('\$ ${customerModel.itemsList[index]['salary'].toString()}.00',style: titleStyle,), 
+```
+As described above remember to use the keyword **itemsList** to access the list data.
+
+
+The result after the above implemation. Remember to comment out MyCustomDialog call in the floating action button  since we havent implemented it yet.
+<img src="image3" width="400em" height="800em" />
+
+Now we need to implement the MyCustomDialog in the floating action button.
+
+```dart
+
+class MyCustomDialog extends StatefulWidget {
+  @override
+  MyCustomDialogState createState() {
+    return new MyCustomDialogState();
+  }
+}
+
+class MyCustomDialogState extends State<MyCustomDialog> {
+  final formKey = new GlobalKey<FormState>();
+  Size deviceSize;
+
+  String name, salary;
+
+  @override
+  Widget build(BuildContext context) {
+    deviceSize = MediaQuery.of(context).size;
+    return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: Container(
+          height: deviceSize.height / 2.0,
+          child: new Form(
+            key: formKey,
+            child: new Column(
+              children: <Widget>[
+                Flexible(
+                    child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      new Padding(
+                        padding: EdgeInsets.only(left: 30.0, top: 30.0),
+                        child: new Text(
+                          "Customer Details",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w300, fontSize: 25.0),
+                        ),
+                      ),
+                      new Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: new ListTile(
+                          leading: const Icon(Icons.person_outline),
+                          title: new TextFormField(
+                            autofocus: false,
+                            decoration: InputDecoration(
+                              labelText: "Full Name",
+                            ),
+                            validator: (value) => value.isEmpty
+                                ? "Fristname cant\'t be empty"
+                                : null,
+                            onSaved: (value) => name = value,
+                          ),
+                        ),
+                      ),
+                      new Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: new ListTile(
+                          leading: const Icon(Icons.attach_money),
+                          title: new TextFormField(
+                            autofocus: false,
+                            initialValue: this.salary,
+                            keyboardType: TextInputType.numberWithOptions(),
+                            decoration: InputDecoration(
+                              labelText: "Salary",
+                            ),
+                            validator: (value) => value.isEmpty
+                                ? "Amount No cant\'t be empty"
+                                : null,
+                            onSaved: (value) => salary = value,
+                          ),
+                        ),
+                      ),
+                      new Padding(
+                        padding: EdgeInsets.only(right: 0.0),
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            new FlatButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: new Text(
+                                  "CANCEL",
+                                  style: TextStyle(color: Colors.red),
+                                )),
+                            new FlatButton(
+                                onPressed: () {
+                                  addCustomer();
+                                },
+                                child: new Text(
+                                  "ADD",
+                                  style: TextStyle(color: Colors.blue),
+                                )),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ))
+              ],
+            ),
+          ),
+        ));
+  }
+
+  bool validateAndSave() {
+    final form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<String> addCustomer() async {
+    if (validateAndSave()) {
+      //final model = DialogModel(); //Mode is the Observable
+      final model = Provider.of<StoreModel>(context);
+      model.add({'name': this.name, 'salary': this.salary});
+      Navigator.pop(context);
+    }
+    return "Success";
+  }
+}
+
+```
+In the above implemantation one thing to take note of is the 
+
+
 
 ### Pull Requests
 I Welcome and i encourage all Pull Requests
