@@ -435,19 +435,50 @@ class MyCustomDialogState extends State<MyCustomDialog> {
     }
   }
 
-  Future<String> addCustomer() async {
+  Future addCustomer() async {
     if (validateAndSave()) {
-      //final model = DialogModel(); //Mode is the Observable
-      final model = Provider.of<StoreModel>(context);
-      model.add({'name': this.name, 'salary': this.salary});
+      final model = StoreModel(); //Mode is the Observable
+      final x = model.of(context, true); //User of method in model with context and listen set to true. To update UI
+      x.add({'name': this.name, 'salary': this.salary});
       Navigator.pop(context);
     }
-    return "Success";
   }
 }
 
 ```
-In the above implemantation one thing to take note of is the 
+The MyCustomDialog class is the descendant class of the ansestor [ReactiveStore]() class Widget.
+Now lets take a look at the **addCustomer** method.  The method will add our data into the store, in this case the name and salary.
+To access the data in our store you use the **of** method in the [StoreModel]().
+To access while notifying Widgets wrapped by the [UpdateUI]() Widget we use the **of** method in the [StoreModel]() listen set to true. See code below
+
+```dart
+...
+...
+Future addCustomer() async {
+  if (validateAndSave()) {
+    final model = StoreModel(); //Model is the Observable
+    final x = model.of(context, true); //User of method in model with context and listen set to true. To update UI
+    x.add({'name': this.name, 'salary': this.salary});
+    Navigator.pop(context);
+  }
+}
+...
+...
+
+```
+To add data in the store  you use the **add**  method in the [StoreModel](). 
+If you want to access the data without neccessarily rebuilding the UI (i.e rebuilding widgets wrapped by UpdateUI Widget) you set the listen parameter to false or directly use the instance of the [StoreModel](). See code below:
+
+```dart
+final model  = StoreModel();
+final access = model.of(context, false);
+
+//these return the total number of items(items being Maps of data) in  the store without rebuilding the UI
+int items = model.itemsList.length; 
+int items2 = access.itemsList.length;
+```
+
+* **NB** Directly using the StoreModel instance object to access operations in the StoreModel does not the rebuild UI you need to pass the context and listen using the **of** method.
 
 
 
