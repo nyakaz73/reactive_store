@@ -221,6 +221,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
    void _showAlertDialog(String title, String message, int index){
+    final model = StoreModel(); //Model is the Observable
+    final x = model.of(context, true); //Use of method in model with context and listen set to true. To update UI
+
     AlertDialog alertDialog = AlertDialog(
       title: new Icon(Icons.warning, size: 80.0, color: Colors.amber,),
       content: Text(message),
@@ -228,8 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
         FlatButton(
           child: Text('YES',style: TextStyle(color: Colors.red),),
           onPressed: () {
-            final model = Provider.of<StoreModel>(context,listen: true);
-            model.remove(index);
+            x.remove(index);
             Navigator.of(context).pop();
           },
         ),
@@ -305,6 +307,7 @@ UpdateUI(
 ...
 ```
 In the above snipped notice how we are accessing the data using a list map conversion
+
 ```dart
 new Text('\$ ${customerModel.itemsList[index]['salary'].toString()}.00',style: titleStyle,), 
 ```
@@ -438,7 +441,7 @@ class MyCustomDialogState extends State<MyCustomDialog> {
   Future addCustomer() async {
     if (validateAndSave()) {
       final model = StoreModel(); //Mode is the Observable
-      final x = model.of(context, true); //User of method in model with context and listen set to true. To update UI
+      final x = model.of(context, true); //Use of method in model with context and listen set to true. To update UI
       x.add({'name': this.name, 'salary': this.salary});
       Navigator.pop(context);
     }
@@ -457,7 +460,7 @@ To access while notifying Widgets wrapped by the [UpdateUI]() Widget we use the 
 Future addCustomer() async {
   if (validateAndSave()) {
     final model = StoreModel(); //Model is the Observable
-    final x = model.of(context, true); //User of method in model with context and listen set to true. To update UI
+    final x = model.of(context, true); //Use of method in model with context and listen set to true. To update UI
     x.add({'name': this.name, 'salary': this.salary});
     Navigator.pop(context);
   }
