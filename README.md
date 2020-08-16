@@ -49,14 +49,15 @@ The **ReactiveStore** class is an ansestor class that provides an instance of ch
 In the example above all descendants of the MyHonePage will be monitored for changes in their states.
 
 The **UpdateUI** is the Consumer Widget for those who are familier with the [provider]() package. The widget is used to update the UI of our application whenever there is a change in state in our application tree.
-The [UpdateUI]() widget take a builder as its attribute. The Function builder take three argumement as follows:
+The [UpdateUI]() widget takes a builder function. The Builder function has three arguments :
+
 ```dart
 new UpdateUI(
   builder: (BuildContext, StoreModel, Widget)=>child
 )
 
 ```
-The BuildContext is the current context of you widget, StoreModel is the name of the store(you can give any any) and the Widget is the child. See example below:
+The BuildContext is the current context of your widget, StoreModel is the name of the store(you can give it any name) and the Widget is the child. See example below:
 
 ```dart
 new Padding(
@@ -71,18 +72,22 @@ new Padding(
 ```
 ### The Store ADT
 
-The above example introduces us to the final piece of our [reactivestore]() which is the [StoreModel]() Abstract Data Type (ADT). The StoreModel  is the store which stores the data. The [StoreModel]() listens for changes in state in our app and **notifies** the Widgets wrapped by the [UpdateUI]() widget. The [StoreModel]() is essentially an **Observable** class.
+The above example introduced us to the final piece of our [reactivestore]() which is the [StoreModel]() Abstract Data Type (ADT). The StoreModel  is the store which stores the data. The [StoreModel]() listens for changes in state in our app and **notifies** the Widgets wrapped by the [UpdateUI]() widget. The [StoreModel]() is essentially an **Observable** class.
 
-The data in the store is accessed using the [Provider.of]() . The Provider.of is of type StoreModel, and to access the data without nessessarily changing the  UI you use it with a listen parameter set to false as follows.
+The data in the store is accessed using the **of** method in the StoreModel .  To access the data without nessessarily changing the  UI you use it with a listen parameter set to false as follows.
 
 ```dart
-final model = Provider.of<StoreModel>(context,listen:false);
+final model  = StoreModel(); //Instantiating the Observable StoreModel class
+final x = model.of(context, false);  //initialise an instance that access the data without rebuilding UI.
 ```
 The StoreModel  is a List implmented ADT with the following operations:
 
+```dart
+final obj = StoreModel(); //initialising the StoreModel
+```
 | Operation                                         | Description    | 
 | -------------                                     |:-------------:|
-| final model = Provider.of<StoreModel>(context);   | Data access with default listen set to true          |
+| final model = obj.of(context,true);   | Data access with  listen set to true          |
 |                                                   |               |
 | model.add({'name':'John','age':5})                                     | add method takes a Map       | 
 | model.remove(index)                               | remove method takes the integer index         | 
@@ -102,7 +107,6 @@ The StoreModel  is a List implmented ADT with the following operations:
 ```dart
 import 'package:reactivestore/model/store_model.dart';
 import 'package:reactivestore/reactivestore.dart';
-import 'package:provider/provider.dart';
 ```
 
 ## Example
@@ -113,7 +117,6 @@ In this Example i will show you how you can easily manage the state of your app 
 import 'package:flutter/material.dart';
 import 'package:reactivestore/model/store_model.dart';
 import 'package:reactivestore/reactivestore.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -137,7 +140,7 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
-In the above snippet i have imported the reactivestore and a provider package. I have wrapped the root MaterialApp with a ReactiveStore Widget.
+In the above snippet i have imported the reactivestore. I have wrapped the root MaterialApp with a ReactiveStore Widget.
 
 ```dart
 class MyHomePage extends StatefulWidget {
@@ -456,9 +459,9 @@ class MyCustomDialogState extends State<MyCustomDialog> {
 <img src="https://github.com/nyakaz73/reactive_store/raw/master/image0.jpg" width="400em" height="800em" />
 
 The MyCustomDialog class is the descendant class of the ansestor [ReactiveStore]() class Widget.
-Now lets take a look at the **addCustomer** method.  The method will add our data into the store, in this case the name and salary.
+Now lets take a look at the addCustomer method.  The method will add our data into the store, in this case the name and salary.
 To access the data in our store you use the **of** method in the [StoreModel]().
-To access while notifying Widgets wrapped by the [UpdateUI]() Widget we use the **of** method in the [StoreModel]() listen set to true. See code below
+To access while notifying Widgets wrapped by the [UpdateUI]() Widget we use the **of** method in the [StoreModel]() with listen set to true. See code below
 
 ```dart
 ...
