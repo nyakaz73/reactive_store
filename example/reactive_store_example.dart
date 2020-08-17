@@ -258,7 +258,6 @@ class MyCustomDialogState extends State<MyCustomDialog> {
       x.add({'name': this.name, 'salary': this.salary});
       Navigator.pop(context);
     }
-    
   }
 }
 
