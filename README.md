@@ -10,11 +10,11 @@ A new Flutter package which helps developers in managing the state of their apps
 This package was inspired by the medium post i wrote [here](https://medium.com/@tafadzwalnyamukapa/dialog-state-management-flutter-using-providers-and-change-notifiers-cbd5a59bcf5a) on Dialog State Management in Flutter — using Providers and Change Notifiers.
 
 ## Usage
-[Example](https://github.com/nyakaz73/Flutter-Footer/blob/master/example/footer_example.dart)
+[Example](https://github.com/nyakaz73/reactive_store/blob/master/example/reactivestore_example.dart)
 
 To use this package :
 
-* add the dependancy to your [pubspec.yaml](https://github.com/nyakaz73/Flutter-Footer/blob/master/pubspec.yanl) file.
+* add the dependancy to your [pubspec.yaml]((https://github.com/nyakaz73/reactive_store/blob/master/pubspec.yanl) file.
 ```yaml
     dependencies:
      flutter:
@@ -111,7 +111,7 @@ import 'package:reactivestore/reactivestore.dart';
 
 ## Example
 
-See full example [here](https://github.com/nyakaz73/reactive_store/blob/master/example/reactive_store_example.dart)
+See full example [here](https://github.com/nyakaz73/reactive_store/blob/master/example/reactivestore_example.dart)
 
 In this Example i will show you how you can easily manage the state of your app using a [Dialog](https://api.flutter.dev/flutter/material/Dialog-class.html) as a descendant class. 
 
