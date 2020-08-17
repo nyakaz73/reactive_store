@@ -110,6 +110,9 @@ import 'package:reactivestore/reactivestore.dart';
 ```
 
 ## Example
+
+See full example [here](https://github.com/nyakaz73/reactive_store/blob/master/example/reactive_store_example.dart)
+
 In this Example i will show you how you can easily manage the state of your app using a [Dialog](https://api.flutter.dev/flutter/material/Dialog-class.html) as a descendant class. 
 
 
@@ -256,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ```
 
-In the above code notice how we are tracking for chages using the [UpdateUI]() widget
+In the above code notice how we are tracking for changes in state using the [UpdateUI]() widget
 ```dart
 ...
 ...
@@ -272,7 +275,7 @@ new Padding(
 ...
 ```
 The  [UpdateUI]() will rebuild whenever something is added to our store. 
-* **Nb** The builder in UpdateUI takes three arguments(BuildContext, StoreModel, Widget). You can name the the StoreModel however you want as long as you are using the name to access the data in store. eg  consumerModel as above.
+* **Nb** The builder in [UpdateUI]() takes three arguments(BuildContext, StoreModel, Widget). You can name the the StoreModel however you want as long as you are using the name to access the data in store. eg  consumerModel as above.
 
 ```dart 
 ...
