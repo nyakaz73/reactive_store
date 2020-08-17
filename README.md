@@ -14,7 +14,7 @@ This package was inspired by the medium post i wrote [here](https://medium.com/@
 
 To use this package :
 
-* add the dependancy to your [pubspec.yaml]((https://github.com/nyakaz73/reactive_store/blob/master/pubspec.yanl) file.
+* add the dependancy to your [pubspec.yaml](https://github.com/nyakaz73/reactive_store/blob/master/pubspec.yanl) file.
 ```yaml
     dependencies:
      flutter:
