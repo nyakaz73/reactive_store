@@ -1,11 +1,11 @@
 name: reactivestore
 description: A new Flutter package which helps developers in managing the state of their apps and creating reactive components/widgets with less boiler plate code.
 version: 0.0.1
-author:
-homepage:
+#author:
+homepage: https://github.com/nyakaz73/reactive_store
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.0.0 <3.0.0"
 
 dependencies:
   flutter:
